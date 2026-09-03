@@ -315,6 +315,23 @@
             }
         }
 
+        /* ========================================================
+           NUEVO: ARREGLO PARA CELULARES ALTOS (ELIMINA EL VACÍO ABAJO)
+           Estira los espacios como un acordeón sin cambiar tus tamaños
+           ======================================================== */
+        @media (max-width: 850px) and (min-height: 720px) {
+            .hero-section {
+                padding-top: 13vh; /* Baja imperceptiblemente todo el bloque para centrar mejor */
+            }
+            .hero-title-container {
+                margin-bottom: 7vh; /* Separa un poco más el título de la chica */
+            }
+            .hero-description {
+                margin-bottom: 11vh; /* Empuja los botones hacia el fondo llenando el gran vacío */
+                line-height: 1.8; /* Le da un poquito más de respiro visual a las líneas de texto */
+            }
+        }
+
         /* SOFF esto es botones centrados desde 520 hasta 648 */
         @media (min-width: 520px) and (max-width: 653px) {
             .hero-buttons {

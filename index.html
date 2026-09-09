@@ -158,11 +158,20 @@
         .hero-wrapper::after, .hero-content-body::after { content: ""; display: table; clear: both; }
 
         /* ========================================================
-           4. ZONA CELULARES (¡TU REFERENCIA EXACTA APLICADA AQUÍ!)
+           4. ZONA CELULARES (¡TU REFERENCIA EXACTA + EFECTO 3D!)
            ======================================================== */
         @media (max-width: 850px) {
-            /* DE TU REFERENCIA: sticky top-0 y 100dvh para que quede CONGELADO */
+            
+            /* NUEVO: Hacemos que el fondo global sea oscuro solo en celulares. 
+               Así, cuando el hero se encoge en 3D, revela el vacío oscuro de atrás. */
+            html, body {
+                background-color: #000000;
+            }
+
             .hero-section {
+                /* Le devolvemos tu color de fondo original solo a la tarjeta del Hero */
+                background-color: #FFF5F5;
+                /* El sticky ancla el hero para que la otra sección lo tape */
                 position: sticky;
                 top: 0;
                 z-index: 10;
@@ -173,20 +182,24 @@
                 justify-content: flex-start;
                 padding: 75px 5% 30px;
                 box-sizing: border-box;
+                /* Propiedades para el efecto 3D fluido */
+                transform-origin: center top; 
+                will-change: transform, filter, border-radius;
             }
 
-            /* DE TU REFERENCIA: sticky top-0, min-height 100dvh y z-index mayor */
+            /* NUEVO: Al quitarle el sticky y dejarlo relative, arreglamos el problema del "mucho scroll".
+               Ahora nace exactamente pegado debajo del Hero. */
             .seccion-siguiente {
-                position: sticky;
-                top: 0;
+                position: relative;
                 z-index: 20;
                 min-height: 100dvh;
                 width: 100%;
                 background-color: #ffffff;
                 border-radius: 35px 35px 0 0;
-                box-shadow: 0 -15px 35px rgba(0,0,0,0.06);
+                box-shadow: 0 -20px 40px rgba(0,0,0,0.15); /* Sombra un poco más fuerte para el efecto de capa */
                 padding: 80px 5%;
                 box-sizing: border-box;
+                margin-top: 0;
             }
 
             .hero-wrapper { display: block; }
@@ -195,7 +208,7 @@
             .hero-avatar-float { margin-top: 15px; margin-bottom: -5px; }
 
             /* =====================================================
-               BLOQUEO ORIGINAL TUYO: Se mantiene para las escalas 
+               BLOQUEO ORIGINAL TUYO: Intacto para las escalas 
                ===================================================== */
             /* CELULARES CHICOS */
             html.h-chico .hero-avatar-float {
@@ -321,7 +334,7 @@
     <!-- EL WRAPPER PRINCIPAL QUE USA TU CÓDIGO DE REFERENCIA -->
     <main class="relative-wrapper">
         
-        <!-- SECCIÓN 1: HERO (Se queda pegado al fondo en celulares gracias a sticky) -->
+        <!-- SECCIÓN 1: HERO -->
         <section class="hero-section">
             
             <nav class="main-nav">
@@ -437,10 +450,12 @@
             </div>
         </section>
 
-        <!-- SECCIÓN 2: SOBRE MÍ (Sube y tapa al Hero al hacer scroll) -->
+        <!-- SECCIÓN 2: SOBRE MÍ (Sube naturalmente mientras el hero se va atrás) -->
         <section class="seccion-siguiente">
             <h2>Sobre mí</h2>
-            <p>Aquí es donde empieza la magia del scroll. Esta tarjeta blanca cubrirá suavemente al Hero en la vista móvil gracias a la misma lógica de tu referencia.</p>
+            <p>¡Aquí es donde empieza la magia del scroll 3D! Al hacer scroll en celular, verás cómo la pantalla de arriba se oscurece y se hace para atrás suavemente, mientras esta tarjeta blanca sube inmediatamente y cubre todo de manera natural.</p>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <p>Relleno adicional para poder scrollear...</p>
         </section>
 
     </main>
@@ -463,13 +478,6 @@
         }
       });
 
-      window.addEventListener('scroll', () => {
-        if (dropdownMenu.classList.contains('active')) {
-          dropdownMenu.classList.remove('active');
-          menuToggle.classList.remove('active');
-        }
-      });
-
       // Animación de la chica
       const container = document.getElementById('sofia-container');
       const arm = document.getElementById('left_x5F_arm_2_');
@@ -484,6 +492,58 @@
             arm.style.animation = 'waveAnimation 0.7s ease-in-out 0s 4 forwards';
           });
         });
+      });
+
+      // =======================================================
+      // LA MAGIA DEL EFECTO 3D EN EL SCROLL (SOLO CELULARES)
+      // =======================================================
+      const heroSection = document.querySelector('.hero-section');
+      let ticking = false;
+
+      window.addEventListener('scroll', () => {
+        // Cierra el menú al hacer scroll
+        if (dropdownMenu.classList.contains('active')) {
+          dropdownMenu.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+
+        // Efecto 3D de "irse hacia atrás" con alto rendimiento
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            // Evaluamos solo si estamos en tamaño celular
+            if (window.innerWidth <= 850) {
+              const scrollY = window.scrollY;
+              const windowHeight = window.innerHeight;
+              
+              // Solo realizamos los cálculos si el Hero aún es visible
+              if (scrollY <= windowHeight) {
+                // Progreso va de 0 (arriba) a 1 (cuando la pantalla scrolleó 100vh)
+                const progress = scrollY / windowHeight;
+                
+                // Reducimos la escala suavemente de 1 a 0.88
+                const scale = 1 - (progress * 0.12);
+                
+                // Oscurecemos el hero simulando que entra a la sombra (de 1 a 0.5)
+                const brightness = 1 - (progress * 0.5);
+                
+                // Redondeamos las puntas de abajo paulatinamente
+                const borderRadius = progress * 40; 
+                
+                // Aplicamos las transformaciones
+                heroSection.style.transform = `scale(${scale})`;
+                heroSection.style.filter = `brightness(${brightness})`;
+                heroSection.style.borderRadius = `0 0 ${borderRadius}px ${borderRadius}px`;
+              }
+            } else {
+              // Si el usuario giró la pantalla a horizontal o está en PC, reseteamos el estilo
+              heroSection.style.transform = '';
+              heroSection.style.filter = '';
+              heroSection.style.borderRadius = '';
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
       });
     </script>
 </body>

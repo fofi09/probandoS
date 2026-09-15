@@ -2,188 +2,1316 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>En Mantenimiento ✨</title>
-    <!-- Tailwind CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Portfolio Hero Perfecto</title>
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Outfit / Fredoka -->
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Inter:wght@400;600;700&family=Lobster&family=Niconne&family=Oleo+Script:wght@400;700&display=swap" rel="stylesheet">
     
+    <script>
+        /* Asignamos la clase de tamaño al cargar para que las media queries funcionen perfecto */
+        if (window.innerWidth <= 850) {
+            let h = window.innerHeight;
+            if (h <= 719) document.documentElement.classList.add('h-chico');
+            else if (h >= 720 && h <= 839) document.documentElement.classList.add('h-medio');
+            else document.documentElement.classList.add('h-alto');
+        }
+    </script>
+
     <style>
-        body {
-            font-family: 'Outfit', sans-serif;
-        }
-        .font-heading {
-            font-family: 'Fredoka', cursive;
-        }
-
-        /* Custom Floating Animations */
-        @keyframes floatSlow {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-18px) rotate(5deg); }
-        }
-        @keyframes floatReverse {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(15px) rotate(-5deg); }
-        }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.05); }
-        }
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
+        /* ========================================================
+           1. ESTILOS GLOBALES (TU CÓDIGO INTACTO)
+           ======================================================== */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #FFF5F5;
+            
+            overscroll-behavior-y: none;
+            overscroll-behavior-x: none;
+            overflow-x: clip; 
         }
 
-        .animate-float-slow {
-            animation: floatSlow 6s ease-in-out infinite;
-        }
-        .animate-float-reverse {
-            animation: floatReverse 7s ease-in-out infinite;
-        }
-        .animate-glow {
-            animation: pulseGlow 4s ease-in-out infinite;
-        }
-        .animate-sparkle {
-            animation: sparkle 2.5s ease-in-out infinite;
+        .hero-section {
+            width: 100%;
+            height: 80vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            box-sizing: border-box;
+            position: relative; 
         }
 
-        /* Custom Glassmorphism */
-        .pink-glass {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 192, 203, 0.5);
+        .hero-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: block; 
+        }
+
+        /* ========================================================
+           ESTILOS DEL MENÚ HAMBURGUESA
+           ======================================================== */
+        .main-nav {
+            position: absolute;
+            top: 20px;
+            right: 5%;
+            z-index: 1000;
+        }
+
+        .hamburger-btn {
+            background-color: pink;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        .hamburger-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .hamburger-btn svg {
+            width: 24px; 
+            height: 24px;
+            stroke: #c8aaff;
+        }
+
+        .hamburger-btn svg line {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+        .hamburger-btn svg line:nth-child(1) { transform-origin: 12px 12px; }
+        .hamburger-btn.active svg line:nth-child(1) { opacity: 0; transform: scale(0); }
+        .hamburger-btn svg line:nth-child(2) { transform-origin: 12px 6px; }
+        .hamburger-btn.active svg line:nth-child(2) { transform: translateY(6px) rotate(45deg); }
+        .hamburger-btn svg line:nth-child(3) { transform-origin: 12px 18px; }
+        .hamburger-btn.active svg line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        .dropdown-menu {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.65); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            padding: 0; margin: 0;
+            z-index: -1; 
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.05); 
+            transition: all 0s; 
+            
+            will-change: transform, opacity, visibility;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+
+        .dropdown-menu li { margin: 20px 0; }
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 25px;
+            color: #000000; 
+            font-family: 'Niconne', cursive; 
+            font-weight: normal; 
+            font-size: 3rem; 
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s, color 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .dropdown-menu li a:hover {
+            background-color: transparent; 
+            color: #4132c9;
+            transform: scale(1.15); 
+        }
+
+        /* TÍTULO ARRIBA PRIMERO */
+        .hero-title-container {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            position: relative;
+            top: 5px; 
+            text-align: center; 
+        }
+
+        .hero-title {
+            font-family: 'Niconne', cursive; 
+            font-size: clamp(2.6rem, 7vw, 4.6rem); 
+            color: #1a1a2e;
+            margin: 0;
+            line-height: 0.85; 
+            font-weight: normal; 
+            text-align: center; 
+        }
+
+        .hero-title span { color: #FF5D8F; }
+
+        .title-heart {
+            display: inline-block;
+            height: 0.85em; 
+            width: auto;
+            vertical-align: baseline;
+            margin-left: 0.1rem; 
+            transform: translateY(0.05em); 
+            opacity: 0; 
+        }
+
+        /* CONTENEDOR PRINCIPAL QUE ABRAZA CHICA Y TEXTO */
+        .hero-content-body { width: 100%; }
+
+        .hero-avatar-float {
+            float: left;
+            width: 240px; 
+            height: 240px;
+            margin-right: 2.5rem; 
+            margin-bottom: 1rem;
+            margin-top: 40px; 
+            shape-outside: circle(48% at 50% 50%);
+        }
+
+        .avatar-scaler {
+            transform: scale(1.6);
+            transform-origin: top left; 
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: #5a5a75;
+            line-height: 1.6;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            display: block; 
+            overflow-wrap: break-word;
+            word-break: break-word;
+            -webkit-hyphens: auto;
+            hyphens: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            clear: none; 
+            position: relative;
+            z-index: 10; 
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+             background-color: #FF87AB;
+            color: black;
+            box-shadow: 0 6px 15px rgba(65, 50, 201, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background-color: beige;
+            box-shadow: #FFA6C1;
+        }
+
+        .btn-secondary {
+            background-color: #FFBCCD;
+            color: black;
+        }
+        .btn-secondary:hover {
+            background-color: #FFA6C1;
+            color: #FFA6C1;
+            transform: translateY(-3px);
+        }
+
+        .hero-wrapper::after, .hero-content-body::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* ========================================================
+           ¡¡LA ZONA DE CELULARES (TU CÓDIGO INTACTO)!!
+           ======================================================== */
+        
+        @media (max-width: 850px) {
+            .hero-section {
+                /* TU MEDIDA PERFECTA PARA QUE EL ROSA CUBRA LA PANTALLA Y DEJE ASOMAR UN POQUITO */
+                min-height: 85vh !important; 
+                height: auto !important;
+                padding: 75px 5% 80px; 
+                justify-content: flex-start;
+            }
+            
+            .hero-wrapper { display: block; }
+            
+            #Calque_1 { margin-top: -65px !important; height: 125% !important; }
+            .hero-description { text-align: left; }
+            .hero-avatar-float {
+                margin-top: 15px; 
+                margin-bottom: -5px; 
+            }
+
+            .hero-buttons { flex-wrap: nowrap; gap: 0.5rem; }
+            .btn { padding: 0.8rem 0.6rem; font-size: 0.85rem; white-space: nowrap; text-align: center; flex: 1; }
+        }
+
+        @media (max-width: 850px) {
+            html.h-chico .hero-avatar-float {
+                width: 170px; 
+                height: 170px; 
+                margin-left: -15px;
+                margin-right: -10px; 
+                /* AGUIRRE SOFIA AQUI ES CON ESTE VALOR ACERCAS EL TEXTO A LA CHICA. */
+                shape-outside: circle(46% at 45% 50%); 
+            }
+            html.h-chico .avatar-scaler { transform: scale(1.25); }
+            html.h-chico .hero-description { font-size: 1.16rem; }
+        }
+
+        @media (max-width: 850px) {
+            html.h-medio .hero-title { font-size: clamp(2.9rem, 8vw, 4.6rem); }
+            html.h-medio .hero-avatar-float { 
+                width: 215px; 
+                height: 215px; 
+                margin-left: -20px; 
+                margin-right: -10px; 
+                /* AGUIRRE SOFIA AQUI ES CON ESTE VALOR ACERCAS EL TEXTO A LA CHICA. */
+                shape-outside: circle(43% at 45% 50%); 
+            }
+            html.h-medio .avatar-scaler { transform: scale(1.55); }
+            html.h-medio .hero-description { font-size: 1.35rem; }
+            html.h-medio .btn { padding: 0.9rem 2rem; font-size: 1.05rem; }
+        }
+
+        @media (max-width: 850px) {
+            html.h-alto .hero-title { font-size: clamp(3.2rem, 9vw, 4.6rem); }
+            html.h-alto .hero-avatar-float { 
+                width: 250px; 
+                height: 250px; 
+                margin-left: -25px; 
+                margin-right: -10px; 
+                /* AGUIRRE SOFIA AQUI ES CON ESTE VALOR ACERCAS EL TEXTO A LA CHICA. */
+                shape-outside: circle(43% at 45% 50%); 
+            }
+            html.h-alto .avatar-scaler { transform: scale(1.8); }
+            html.h-alto .hero-description { font-size: 1.5rem; }
+            html.h-alto .hero-buttons { margin-top: 1rem; }
+            html.h-alto .btn { padding: 1rem 2.2rem; font-size: 1.1rem; }
+        }
+
+        @media (max-width: 390px) {
+            .hero-avatar-float { margin-right: 0px; }
+        }
+
+        /* ========================================================
+           ZONA DE COMPU Y TABLETS (TU CÓDIGO INTACTO)
+           ======================================================== */
+        @media (min-width: 851px) {
+            .hero-section {
+                height: auto; 
+                min-height: 80vh; 
+                padding-top: 60px; 
+                padding-bottom: 40px;
+            }
+            .hero-title-container {
+                text-align: center;
+                margin-bottom: 0;
+                top: 15px; 
+            }
+            .hero-title { text-align: center; }
+
+            .hero-content-body {
+                display: grid;
+                grid-template-columns: 1fr 1fr; 
+                grid-template-areas: 
+                    "avatar text"
+                    "avatar buttons";
+                column-gap: 0; 
+                align-items: start; 
+                margin-top: 2rem; 
+            }
+
+            .hero-avatar-float {
+                grid-area: avatar;
+                float: none; 
+                shape-outside: none; 
+                width: 100%;
+                height: 350px; 
+                margin: 0;
+                display: flex;
+                justify-content: center; 
+                position: relative;
+                left: -12px; 
+            }
+
+            .avatar-scaler {
+                transform: scale(2.2); 
+                transform-origin: top center; 
+            }
+
+            .hero-description {
+                grid-area: text;
+                margin-top: 2rem; 
+                margin-bottom: 1.5rem;
+                margin-left: -200px; 
+                max-width: 500px;
+                font-size: 1.25rem; 
+            }
+
+            .hero-buttons {
+                grid-area: buttons;
+                justify-content: flex-start; 
+                margin-left: -200px; 
+                margin-top: -70px;
+            }
+        }
+
+        @media (min-width: 851px) and (max-width: 1025px) {
+            .hero-avatar-float { left: -70px; }
+        }
+
+        /* ========================================================
+           SECCIÓN DE SERVICIOS (LA VERSIÓN PERFECTA)
+           ======================================================== */
+        .seccion-siguiente {
+            background-color: #ffffff;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+            background-size: 25px 25px; 
+
+            position: relative; 
+            z-index: 2;
+            
+            display: flex;
+            flex-direction: column; 
+            justify-content: flex-start; 
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            
+            /* LA CLAVE: 0 padding arriba, el título manda con su margin */
+            padding-top: 0;
+            padding-bottom: 60px;
+            padding-left: 0;
+            padding-right: 0;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .seccion-siguiente {
+                justify-content: center; 
+            }
+        }
+        
+        @media (min-width: 851px) {
+            .seccion-siguiente {
+                padding-bottom: 80px;
+            }
+        }
+
+        .seccion-titulo {
+            font-family: 'Niconne', cursive; 
+            font-size: 1.8rem; 
+            font-weight: 400; 
+            color: #1a1a1a;
+            
+            margin-top: 3vh; 
+            margin-bottom: 1vh; 
+            
+            padding: 5px 20px; 
+            border-radius: 12px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .seccion-titulo {
+                font-size: 2.6rem; 
+                margin-top: 4vh; 
+            }
+        }
+
+        .servicios-wrapper {
+            container-type: inline-size;
+            width: 95%; 
+            max-width: 500px; 
+            
+            aspect-ratio: 1 / 1.85; 
+        
+            position: relative;
+            background-color: transparent; 
+            box-shadow: none; 
+            margin-top: -2vh; 
+        }
+
+        @media (min-width: 768px) {
+            .servicios-wrapper { 
+                aspect-ratio: 3 / 4; 
+                width: 86vh; 
+                max-width: 100%; 
+            }
+        }
+
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+            .seccion-siguiente {
+                background-attachment: scroll !important; 
+                justify-content: flex-start !important;
+                padding-top: 2vh;
+                padding-bottom: 5vh;
+            }
+            .servicios-wrapper {
+                width: 82vw !important; 
+                max-width: 450px !important;
+            }
+        }
+
+        .svg-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .svg-mobile { display: block; }
+        .svg-desktop { display: none; }
+
+        @media (min-width: 768px) {
+            .svg-mobile { display: none; }
+            .svg-desktop { display: block; }
+        }
+
+        .card {
+            position: absolute;
+            width: 70cqw; 
+            background: white;
+            border-radius: 2cqw;
+            padding: 1.2cqw;
+            box-shadow: 0 3cqw 6cqw rgba(0,0,0,0.06), 0 1cqw 2cqw rgba(0,0,0,0.04);
+            z-index: 2;
+        }
+
+        .card-inner {
+            border-radius: 1cqw;
+            padding: 3cqw 2.5cqw; 
+            max-height: 75cqw; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2cqw; 
+            overflow-y: auto;
+            scrollbar-width: none; 
+        }
+
+        .card-inner::-webkit-scrollbar {
+            display: none; 
+        }
+
+        @media (min-width: 768px) {
+            .card {
+                width: 54cqw; 
+            }
+            .card-inner {
+                max-height: 26cqw; 
+            }
+        }
+
+        .cinta {
+            position: absolute;
+            top: -2cqw;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12cqw;
+            height: 3.5cqw;
+            z-index: 3;
+            box-shadow: 0 0.5cqw 1cqw rgba(0,0,0,0.1);
+            clip-path: polygon(2% 0, 98% 2%, 100% 100%, 0 98%);
+        }
+
+        .titulo {
+            font-size: 3.5cqw; 
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .lista-servicios {
+            font-size: 2.5cqw; 
+            color: #444;
+            line-height: 1.35;
+            margin: 0;
+            padding-left: 2.5cqw;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6cqw;
+        }
+
+        .lista-servicios li { margin: 0; }
+        .lista-servicios strong { color: #222; }
+
+        .card-1 {
+            top: 10cqw; 
+            left: 2cqw;
+            transform: rotate(-3deg);
+        }
+        .card-1 .card-inner { background-color: #f7f9ea; }
+        .card-1 .cinta { background-color: rgba(162, 184, 73, 0.9); transform: translateX(-50%) rotate(-4deg); }
+
+        .card-2 {
+            top: 65cqw; 
+            right: 2cqw;
+            transform: rotate(4deg);
+        }
+        .card-2 .card-inner { background-color: #fcebf0; }
+        .card-2 .cinta { background-color: rgba(238, 76, 126, 0.9); transform: translateX(-50%) rotate(3deg); }
+
+        .card-3 {
+            top: 120cqw; 
+            left: 4cqw;
+            transform: rotate(-2deg);
+        }
+        .card-3 .card-inner { background-color: #eaf6fc; }
+        .card-3 .cinta { background-color: rgba(85, 179, 226, 0.9); transform: translateX(-50%) rotate(-5deg); }
+
+        @media (min-width: 768px) {
+            .card-1 { top: 10cqw; left: 3cqw; }
+            .card-2 { top: 42cqw; right: 3cqw; }
+            .card-3 { top: 74cqw; left: 6cqw; }
+        }
+
+        /* ========================================================
+           TU CSS ORIGINAL INTACTO DE LA CHICA Y ANIMACIONES
+           ======================================================== */
+        .animation-container {
+          --support-size: 150px; 
+          position: relative;
+          width: var(--support-size);
+          height: var(--support-size);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          -webkit-tap-highlight-color: transparent;
+          -webkit-touch-callout: none;
+          user-select: none;
+        }
+
+        @keyframes waveAnimation {
+          0%, 100% { transform: rotate(0deg); }
+          50% { transform: rotate(15deg); }
+        }
+
+        @keyframes bounceEntrance {
+          0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+          50% { opacity: 1; transform: translateY(-15px) scale(1.02); }
+          75% { transform: translateY(8px) scale(0.99); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .st-hair { fill: #261a15; }
+        .st2 { fill: #f9c8a7; }
+        .st3 { fill: #ff9e97; }
+        .st5 { fill: #261a15; }
+        .st6 { fill: #d72e48; }
+        .st7 { fill: #ffffff; }
+        .st8 { fill: #ff8d7f; }
+        .st10 { fill: #111111; }
+        .st11 { fill: #1a1a1a; }
+        .st12 { opacity: 0.2; }
+        .st-shirt { fill: #ffffff; }
+        .st-shirt-shadow { fill: #e2e2e2; }
+        
+        #Calque_1 {
+          display: block;
+          height: 100%;
+          width: auto;
+          margin-top: -30px; 
+          opacity: 0; 
+          animation: bounceEntrance 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+          
+          /* OPTIMIZACIÓN: Usa la placa de video para el salto inicial */
+          will-change: transform, opacity;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+        
+        #left_x5F_arm_2_ {
+          transform-origin: 230px 160px; 
+          
+          /* OPTIMIZACIÓN: 60fps clavados para el saludo del brazo */
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+
+        #loader-wrapper {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #FFF5F5; 
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none; 
+        }
+
+        #loader-heart-mover {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: center center;
+            will-change: transform; 
+            
+            position: relative;
+            top: -7px; 
+        }
+
+        .loader-heart-svg {
+            width: 140px; 
+            height: auto;
+        }
+
+        .mask-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawMask 4.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            
+            will-change: stroke-dashoffset;
+        }
+
+        @keyframes drawMask {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        /* ========================================================
+           SECCIÓN DE PROYECTOS
+           ======================================================== */
+        .niconne-regular {
+          font-family: "Niconne", cursive;
+          font-weight: 400;
+          color: #1a1a2e;
+        }
+
+        #projects-section {
+            /* //soff aqui termina fondo CUADRICULADO */
+            margin-top: -20vh; 
+            z-index: 5;
+        }
+        
+        @media (max-width: 850px) {
+            #projects-section {
+                /* //soff aqui termina fondo CUADRICULADO */
+                margin-top: -15vh; 
+            }
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-pink-100 via-rose-100 to-pink-200 min-h-screen flex items-center justify-center p-4 relative overflow-hidden text-rose-950">
 
-    <!-- Floating Background Bubbles & Icons -->
-    <div class="absolute inset-0 pointer-events-none overflow-hidden">
-        <!-- Glowing Orbs -->
-        <div class="absolute top-10 left-10 w-72 h-72 bg-pink-300/40 rounded-full blur-3xl animate-glow"></div>
-        <div class="absolute bottom-10 right-10 w-96 h-96 bg-rose-300/40 rounded-full blur-3xl animate-glow" style="animation-delay: 2s;"></div>
-        
-        <!-- Floating Elements -->
-        <div class="absolute top-1/4 left-12 animate-float-slow text-pink-400 opacity-80 text-3xl">✨</div>
-        <div class="absolute top-1/3 right-16 animate-float-reverse text-rose-400 opacity-80 text-4xl" style="animation-delay: 1s;">🌸</div>
-        <div class="absolute bottom-1/4 left-20 animate-float-reverse text-pink-300 opacity-80 text-3xl" style="animation-delay: 2.5s;">💖</div>
-        <div class="absolute bottom-1/3 right-24 animate-float-slow text-rose-300 opacity-80 text-3xl" style="animation-delay: 1.5s;">🎀</div>
-        <div class="absolute top-16 right-1/3 animate-sparkle text-pink-400 text-xl" style="animation-delay: 0.5s;">✨</div>
-        <div class="absolute bottom-16 left-1/3 animate-sparkle text-rose-400 text-2xl" style="animation-delay: 1.8s;">✨</div>
+<body class="bg-white font-sans antialiased">
+
+    <!-- ==========================================
+         LOADER QUE VUELA Y SE DIBUJA
+         ========================================== -->
+    <div id="loader-wrapper">
+        <div id="loader-heart-mover">
+            <svg class="loader-heart-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+                <defs>
+                    <mask id="draw-mask">
+                        <path class="mask-path" pathLength="100" d="M 100 70 C 40 -30, -20 100, 100 220" fill="none" stroke="white" stroke-width="80" stroke-linecap="round" stroke-linejoin="round" />
+                        <path class="mask-path" pathLength="100" d="M 100 70 C 160 -30, 220 100, 100 220" fill="none" stroke="white" stroke-width="80" stroke-linecap="round" stroke-linejoin="round" />
+                    </mask>
+                </defs>
+                <g mask="url(#draw-mask)">
+                    <path d="M 94 95 C 80 50, 40 20, 15 45 C -10 70, 5 130, 35 160 C 55 180, 75 190, 95 195 C 75 188, 55 175, 38 155 C 18 130, 8 85, 25 55 C 45 25, 75 60, 94 95 Z" fill="#374151" />
+                    <path d="M 90 80 C 105 20, 170 -5, 190 35 C 210 75, 160 135, 130 170 C 115 188, 108 208, 105 220 C 112 195, 125 180, 145 155 C 185 110, 195 60, 175 40 C 155 20, 110 35, 90 80 Z" fill="#374151" />
+                </g>
+            </svg>
+        </div>
     </div>
 
-    <main class="relative z-10 w-full max-w-lg mx-auto text-center">
-        <div class="pink-glass rounded-3xl p-8 sm:p-12 shadow-2xl shadow-pink-200/60 border border-pink-200/80 transition-all duration-300 hover:shadow-pink-300/80">
+    <!-- ==========================================
+         HERO SECTION
+         ========================================== -->
+    <section class="hero-section" style="background-color: #FFF5F5;">
+        
+        <nav class="main-nav">
+            <button class="hamburger-btn" id="menu-toggle" aria-label="Abrir menú">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <ul class="dropdown-menu" id="dropdown-menu">
+                <li><a href="#">Servicios</a></li>
+                <li><a href="#">Proyectos</a></li>
+                <li><a href="#">Estudios</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <div class="hero-wrapper">
             
-            <!-- Status Badge -->
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-200/70 border border-pink-300/60 text-pink-700 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-6 shadow-sm">
-                <span class="relative flex h-2.5 w-2.5">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-pink-600"></span>
-                </span>
-                Trabajando en algo lindo ✨
+            <div class="hero-title-container">
+                <h1 class="hero-title">
+                    Construyo tus webs<br>
+                    <span>con estilo propio.</span>
+                    <svg class="title-heart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+                        <path d="M 94 95 C 80 50, 40 20, 15 45 C -10 70, 5 130, 35 160 C 55 180, 75 190, 95 195 C 75 188, 55 175, 38 155 C 18 130, 8 85, 25 55 C 45 25, 75 60, 94 95 Z" fill="#374151" />
+                        <path d="M 90 80 C 105 20, 170 -5, 190 35 C 210 75, 160 135, 130 170 C 115 188, 108 208, 105 220 C 112 195, 125 180, 145 155 C 185 110, 195 60, 175 40 C 155 20, 110 35, 90 80 Z" fill="#374151" />
+                    </svg>
+                </h1>
             </div>
 
-            <!-- Cute Icon/Illustration -->
-            <div class="relative w-28 h-28 mx-auto mb-6 flex items-center justify-center">
-                <!-- Glowing background for icon -->
-                <div class="absolute inset-0 bg-gradient-to-tr from-pink-300 to-rose-200 rounded-2xl rotate-6 blur-sm opacity-70"></div>
-                <!-- Main Icon Box -->
-                <div class="relative w-full h-full bg-white/90 rounded-2xl shadow-inner border border-pink-100 flex items-center justify-center text-5xl">
-                    <span class="animate-float-slow inline-block">🌸</span>
-                </div>
-                <!-- Mini overlay badge -->
-                <div class="absolute -bottom-2 -right-2 bg-pink-500 text-white p-2 rounded-full shadow-md text-sm animate-bounce">
-                    🛠️
-                </div>
-            </div>
-
-            <!-- Main Heading -->
-            <h1 class="font-heading text-3xl sm:text-4xl font-bold text-rose-900 mb-4 leading-tight">
-                ¡Estamos en mantenimiento!
-            </h1>
-
-            <!-- Description Text -->
-            <p class="text-rose-700/90 text-base sm:text-lg mb-8 leading-relaxed">
-                Esta página está teniendo un poquito de mantenimiento para dejar todo perfecto. Por favor, <span class="font-semibold text-rose-900 underline decoration-pink-300 decoration-2">vuelve más tarde</span>. ¡Gracias por la paciencia! 💕
-            </p>
-
-            <!-- Cute Progress Bar -->
-            <div class="bg-pink-100/80 rounded-2xl p-4 mb-8 border border-pink-200/60">
-                <div class="flex justify-between items-center mb-2 text-xs sm:text-sm font-medium text-pink-800">
-                    <span class="flex items-center gap-1.5">
-                        <span class="animate-spin text-xs">✨</span> Poniendo todo bonito...
-                    </span>
-                    <span class="font-bold text-pink-600">95%</span>
-                </div>
-                <div class="w-full bg-pink-200/70 rounded-full h-3 p-0.5 overflow-hidden">
-                    <div class="bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500 h-full rounded-full w-[95%] transition-all duration-1000 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+            <div class="hero-content-body">
+                
+                <div class="hero-avatar-float">
+                    <div class="avatar-scaler">
+                        <div class="animation-container" id="sofia-container">
+                            <svg id="Calque_1" viewBox="0 0 377 270" xmlns="http://www.w3.org/2000/svg">
+                                <g id="phone">
+                                  <g id="caractere_x5F_1">
+                                    <path id="right_x5F_hair" class="st-hair" d="M199,87.1c-0.9-2.6-1.2-5.3-1.2-8.2c0.2,0.4,0.3,0.8,0.5,1.1c1.4,3.1,2.9,5.8,4.4,8 c-1.2-2.8-2.6-6.9-3.2-12.1c-0.4-4.6,0-8.5,0.5-11.3c2.2-10.3,4.6-21.2-1.6-31.5c-10.9-18.3-33.6-8.4-33.6-8.4L151,110.2 C 160,135 170,150 175,150 C 185,150 195,115 199,87.1z"></path>
+                                    <g id="neck_2_">
+                                      <path id="neck_x5F_and_x5F_shoulder" class="st2" d="M175.4,146.4c-12.7,2.3-56.5-13-69.2-11c-1.1-8.3,6.2-16.7,9.8-19.2 c10-6.9,28,4.2,27.3-17.8c-0.8-22.9-1.6-28.3-1.6-28.3l26.2,17.5c0,0-5.6,8.1,0,19.7c5.2,10.6,23-2,29.8,11 C180.1,123.5,193.3,143.2,175.4,146.4z"></path>
+                                      <path id="shadow_x5F_head" class="st3" d="M166.8,104.9c-10.9,1.5-20.9-4.5-23.9-14.5c-0.7-16.2-1.2-20.4-1.2-20.4l26.2,17.5 C167.8,87.6,163,94.6,166.8,104.9z"></path>
+                                    </g>
+                                    <g id="face">
+                                        <path id="face_4_" class="st2" d="M188.2,78c-0.5,4.5-2.8,7.9-4,9.8c-1.1,1.7-1,1.1-5.4,6.3c-3.8,4.5-4,5-5.2,5.5 c-1.5,0.6-3.7,0.6-10.4-3.1c-4.9-2.7-8-4.4-11.8-8c-4.2-3.9-11.5-10.6-13.8-21.6c-0.9-4.2-3.3-16.1,23.3-31.2 c0,0,10.4-4.1,18.5,1.2c7.5,5,8.5,14.4,8.7,16.2c0.6,6.2-1.8,8.2-1.1,15.2c0.1,0.5,0.1,1,0.2,1.6l0,0 C187.8,73.4,188.6,74.8,188.2,78z"></path>
+                                        <g>
+                                          <g id="nose"><path class="st4" d="M176.7,63.3c0.9,1.9,1.6,3.8,2.4,5.5c0.4,0.9,0.9,1.8,1.3,2.5c0.5,0.8,1.1,1.5,1.8,1.8l1.3,0.6l-1.2,0.6 c-1.1,0.5-2.1,1-3.2,1.4c-1.1,0.4-2.2,0.8-3.4,0.9c0.5-0.2,1.1-0.5,1.6-0.8s1-0.6,1.5-0.9c1-0.6,2-1.2,2.9-1.8l0.1,1.2 c-1.2-0.4-2-1.3-2.6-2.2c-0.6-0.9-1.1-1.9-1.4-2.9c-0.4-1-0.6-2-0.8-3C176.7,65.4,176.6,64.4,176.7,63.3z"></path></g>
+                                          <g id="left_x5F_eyebrow"><path class="st5" d="M153.1,55.8c0.3-0.7,0.8-1.4,1.3-2s1.1-1.1,1.8-1.6c1.3-0.9,3-1.5,4.7-1.6c1.8-0.1,3.6,0.5,4.9,1.5 c1.4,1,2.4,2.4,2.6,4.1c-1.5-0.7-2.8-1.2-4-1.4c-1.2-0.3-2.3-0.4-3.4-0.4c-1.1,0.1-2.3,0.2-3.6,0.5c-0.6,0.1-1.3,0.3-2,0.5 C154.6,55.5,153.9,55.7,153.1,55.8z"></path></g>
+                                          <g id="right_x5F_eyebrow"><path class="st5" d="M188.6,55.7c-1.2-0.8-2.2-1.3-3.1-1.5c-0.9-0.2-1.6-0.1-2.6,0h-0.3l-0.4,0.1l-0.7,0.2 c-0.5,0.2-1,0.3-1.6,0.4c-0.6,0.2-1.1,0.3-1.8,0.5c-0.6,0.1-1.3,0.3-2,0.3c0.2-0.7,0.6-1.3,1-1.9c0.4-0.6,0.9-1,1.4-1.5 s1.1-0.8,1.7-1.2c0.3-0.2,0.7-0.3,1-0.4l0.5-0.2l0.6-0.1c1.5-0.3,3.4,0,4.6,1.1C188.2,52.7,188.8,54.3,188.6,55.7z"></path></g>
+                                        </g>
+                                        <path id="mouth" class="st5" d="M159.1,79.6c0,0,0.3,3.2,2.5,5.8c0.3,0.4,0.7,0.8,1.1,1.1c1.9,1.6,4.7,2.7,9.1,2.1 c0.5-0.1,0.9-0.2,1.3-0.4c0.4-0.2,0.9-0.4,1.2-0.6c3.4-2.1,3.9-6.4,3.9-6.4s-0.7,0.2-1.8,0.4c-2.8,0.6-8.5,1.1-14.8-1.1 C160.7,80.3,159.9,80,159.1,79.6z"></path>
+                                        <path id="tongue" class="st6" d="M162.7,86.5c1.9,1.6,4.7,2.7,9.1,2.1c0.5-0.1,0.9-0.2,1.3-0.4c-0.3-1.5-2.9-2.7-6-2.7 C165.3,85.5,163.8,85.9,162.7,86.5z"></path>
+                                        <path id="thoot" class="st7" d="M161.6,80.6c0,0.7,0.4,1.6,1.7,1.9c2.5,0.5,8.6,1.4,12.4,0.4c0,0,0.5-0.4,0.7-1.2 C173.6,82.3,167.8,82.9,161.6,80.6z"></path>
+                                        <path id="eye_x5F_right" class="st5" d="M186,63.8c-1.2-0.5-2.1-0.9-3.2-0.9c-1-0.1-2.1,0.1-3.3,0.4c0.3-0.6,0.9-1,1.4-1.3 c0.6-0.3,1.3-0.4,2-0.3C184.2,61.7,185.5,62.5,186,63.8z"></path>
+                                        <path id="eye_x5F_left" class="st5" d="M158.4,62.6c1-1.4,2.9-2.3,4.7-2.1c0.9,0.1,1.8,0.3,2.6,0.8s1.4,1.1,1.9,1.9 c-0.8-0.4-1.5-0.8-2.3-1c-0.8-0.3-1.5-0.4-2.3-0.5s-1.5,0-2.3,0.2C160,62,159.2,62.3,158.4,62.6z"></path>
+                                    </g>
+                                    <path id="hair_x5F_left" class="st-hair" d="M171.3,32.2c0.1-1.7-0.1-3.7-1.1-5.7c-4.5-8.2-21.3-6.8-29.6-5.2 C107,27.8,110,75,115,92 C 117,110 120,135 125,135 C 135,135 140,100 144.6,68.6 c-0.1,1.2-0.1,2.4-0.2,3.7c-0.1,3.5,0.6,6.4,1.1,8.3 c-0.2-2.1-0.6-9.3,4.2-15.8c1.9-2.5,3.9-4.1,5.7-5.2c0.3-0.2,0.6-0.3,0.9-0.5c0.1-0.1,0.2-0.1,0.3-0.2l0,0 C173.4,48.2,171.3,32.2,171.3,32.2z"></path>
+                                    <ellipse id="left_x5F_cheek_2_" transform="matrix(8.249854e-02 -0.9966 0.9966 8.249854e-02 79.3047 221.9763)" class="st8" cx="160.2" cy="67.9" rx="1.3" ry="3.7"></ellipse>
+                                    <path id="right_x5F_cheeck" class="st8" d="M187.3,69.9L187.3,69.9c-0.6,0.1-1.3,0.2-2.1,0.1c-1.6-0.1-2.9-0.7-2.9-1.3 c0.1-0.6,1.4-0.9,3.1-0.8c0.6,0.1,1.2,0.2,1.7,0.3C187.1,68.8,187.2,69.3,187.3,69.9z"></path>
+                                  </g>
+                                  <g id="left_x5F_arm_2_">
+                                    <path class="st3" d="M253.8,129.2c1.8-0.9,3.4-0.4,3.9,0.4c0.4,0.6-0.8,0.8-2.2,2.4c-1.4,1.7-3.4,5.2-3.4,5.2l-2.1-3.8 C249.9,133.4,251.6,130.3,253.8,129.2z"></path>
+                                    <path class="st2" d="M252.4,140.8c-0.4,5.4-0.7,9.3-1.9,13.4c-0.2,0.7-0.8,2.7-1.6,5.1c-0.1,0.3-0.2,0.7-0.3,1 c-0.4,1.1-0.7,2.1-0.9,2.7c0,0.1-0.1,0.2-0.1,0.3c-3.6-2.6-6.1-3-7.7-2.7c-0.4,0.1-1.6,0.3-2.8-0.2c-1-0.4-1.6-1.2-2-1.8 c1.2-1.4,2.1-2.7,2.6-3.6c0.5-1,1.1-2.1,1.3-2.6c0.3-0.7,0.6-1.3,0.8-1.7c-0.1-1-0.3-2-0.4-2.9c-0.4-2.8-0.6-5.5-0.9-8.2 c0,0-1.6-2.2-1.8-2.5c-0.2-0.2-0.7-0.4-0.9-0.9c-0.4-1.8,0.7-3.2,0.7-3.2s-0.4-0.9,0-2.1s1.3-2.2,1.3-2.2s-0.5-2.7,0-3.3 c0.5-0.6,5.4-3.1,6.4-2.8c1,0.3,4.1,5.2,4.1,5.2s-0.3-2.2-0.8-3.4c-0.5-1.2-0.5-2.7-3.8-4.5c-3.8-2.1-3.8-3.7-3.3-4.3 c0.5-0.5,2.9,0.8,4.5,1.6c1.6,0.8,3.1,2.3,5.1,4c2,1.6,1.5,3.1,1.9,4.9c0.5,1.8,0.2,3.6,0.6,4.7 C252.8,131.3,252.9,134.4,252.4,140.8z"></path>
+                                    <path class="st3" d="M237.8,136c0.5,0.1,1.3,2.5,2.2,2.3c0.2-0.1,1.3-0.5,1.3-0.8c0,0-0.9-1.2-1.6-1.7c-0.7-0.5-1.4-1.2-2.1-1.4 c-0.9-0.1-2,0.7-1.7,1.6c0.1,0.4,0,0.7,0.6,1.8c0.4,0.8,1.4,2.2,1.9,2.6c0.4,0.3,0.6-0.7,0.7-1.5 C239.1,138.6,238.1,136.5,237.8,136z"></path>
+                                    <path class="st3" d="M243.3,135c0.4,0-1.6-2.7-1.9-3c-0.6-0.7-1.3-1.7-2.1-2.2c-0.9-0.5-2-0.2-2.5,0.7c-0.3,0.7-0.5,1.6-0.2,2.4 c0.6-1.1,1.2-1.6,2.4-1C240.4,132.5,243.3,135,243.3,135z"></path>
+                                    <path class="st3" d="M244.9,127.7c-0.4-1.1-0.8-1.4-1.3-2.4c-0.2-0.4-0.4-0.9-0.9-0.9c-0.4,0-1.3,0.4-1.7,0.6 c-1.3,0.6-2.9,0.9-3.1,1.1c-0.2,0.2-0.4,1.4,0,2.1c0.3-0.6,1-1.1,1.5-1.2c0.6-0.1,1.2,0.2,1.7,0.4c1,0.5,2,1.4,2.8,2.1 c0.9,0.8,2.4,2.6,2.4,2.6C246.5,130.9,245.2,128.4,244.9,127.7z"></path>
+                                    <g>
+                                      <path class="st9" d="M240.6,137.4h0.1l0,0H240.6z"></path>
+                                      <path class="st3" d="M240.9,151.1c-0.2-0.6-1.9-7.6-0.1-12.6c0.1-0.4,0.5-1.1,0.5-1.1c-3.4,0.5-3,4.1-3,5.6 c0.1,2.2,0.6,5.5,1.5,7.6c0.3,0.7,1.2,2.2,2,2.1C241.4,152.4,241.1,151.6,240.9,151.1z"></path>
+                                    </g>
+                                    <path id="right_x5F_arm_4_" class="st2" d="M248.9,159.3c-0.1,0.7-0.3,1.5-0.6,2.2c0,0-0.2,0.6-0.6,1.5c-0.1,0.1-0.1,0.3-0.1,0.3 c-0.1,0.4-14,34.6-27.3,35.5c-10.5,0.7-24.5-19-29.5-49.2c-1.3-7.7-2.6-15.3-3.9-23c0,0,17.1,2.4,22.2,15.5 c7.1,18.2,12.2,34.6,12.2,34.6c7.4-7.6,10.5-11.9,11.9-14.5c0.6-1.2,1.3-2.4,2-3.6c1.2-1.4,2.1-2.7,2.6-3.6 c0.5-1,1.1-2.1,1.3-2.6c1.6-1.3,4.5-2.2,6.7-1.2C248.1,152.3,249.6,155.6,248.9,159.3z"></path>
+                                    <path id="shadow_x5F_right_x5F_arm_2_" class="st3" d="M221.3,176.7l-3.3,2.8c0,0-1.1-16.2-2.6-20.4L221.3,176.7z"></path>
+                                  </g>
+                                  <path id="skirt_2_" class="st10" d="M211.4,267.9H96.7c0.7-2.3,1.5-4.5,2.3-6.4c6.2-15.6,14.1-23.9,23.3-47.3 c2.6-6.4,4.5-12.3,6.1-17.2c1.2-3.8,2.1-7.1,2.8-9.8c19.9,1.1,39.9,2.2,59.8,3.3c0.6,2.1,1.2,4.3,1.9,6.5 c3.3,11.6,6.5,23.4,9.6,35.5C205.6,244.4,208.6,256.3,211.4,267.9z"></path>
+                                  <path id="back_x5F_left_x5F_arm_2_" class="st3" d="M111.4,188.1c3.9-2.5,6.7-13.2,10.4-37.9c1.2-8,1.7-11.5,1-16.5 c-0.3-2.3-1.6-11.8-7-13.6c-3.6-1.2-7.3,0.8-8,1.2c-8,5.2-8.6,16.5-8.5,38.6c0.1,17.5,0.5,28.3,3.4,29.6 C106.3,191.3,110.8,188.5,111.4,188.1z"></path>
+                                  <g id="chest_1_">
+                                    <g id="chest_4_">
+                                      <g><path class="st11" d="M99.9,140.4c0-1.8,0.2-12.4,8.6-20.2c7.2-6.6,17.7-8.7,27.4-5.6c3.9,7.3,7.6,9.3,10.4,9.7 c3.3,0.4,5.5-1.4,8.2,0.1c3.4,1.9,3.1,6.6,5.1,6.8c1.4,0.1,1.9-2.2,4.1-4.7c4.1-4.4,8.4-2.9,13.1-6.4c1.9-1.4,4.3-4,5.8-8.9 c3.1-0.2,7.4-0.1,12.3,1.5c0,0,0.5,0.1,0.9,0.3c14.4,5.4,18.3,23.5,18.3,23.5c-4.4,5.7-10.2,10-15.1,12.9 c2.7,20.4-8,41.1-8,41.1c-8,1.5-18,2.7-29.6,2.5c-12.2-0.2-22.6-1.9-30.8-3.9c-2.9-11.9-5.8-23.8-8.7-35.7L99.9,140.4z"></path></g>
+                                    </g>
+                                    <g id="shadow_x5F_chest_2_" class="st12">
+                                      <g><path class="st13" d="M141.3,169.8c9.2,4,19.3,6.2,29.2,7.7c8.2,1.2,16.8,2.5,25.1,1.7c-2.2,6.8-4.5,11.3-4.5,11.3 c-10.4,1.9-23.9,3.3-39.5,2c-7.8-0.7-14.8-1.9-20.9-3.3c-2.7-11.2-5.4-22.4-8.1-33.7C126.8,162.2,134,166.6,141.3,169.8z"></path></g>
+                                    </g>
+                                  </g>
+                                  <g id="right_x5F_arm_1_">
+                                    <path class="st2" d="M111.6,147.8c1.3,8.4,2.2,8.5,3.4,18c0.8,6.5,0.2,10.7-1.2,15.1c-0.9,2.9-1.2,6-4.9,8 c-0.6,0.3-3.4,2.3-7.5,0.7c-0.6-0.2-5.8-4.1-7.5-15.3c-0.9-6.1-0.6-21.9,2.7-35.2c4-16.7,3.4-14,4.9-19 c1.5-4.9,1.9-13.4,7.3-14.6c1.8-0.4,3.7,1,4.6,2.4c1.2,1.9-0.2,4-0.7,7.3C110.3,128.8,110.3,139.2,111.6,147.8z"></path>
+                                    <path class="st3" d="M114.5,93.9c0.7-2.5,2.1-4.4,2.7-6.9c0-0.2,0.1-0.8,0.6-1.2c1.2-0.9,3.9-1.2,6.7-2.7 c0.3-0.2,2.2-1.4,2.7-1.1c0.4,0.3,0.8,0.9,0.7,1.4c-0.1,0.3,0,1.5-1.5,2.5c-2.5,1.6-5.4,2.3-5.7,2.6c-0.6,0.5-0.1,2.4-0.1,3.2 c-0.1,6-3.3,7.1-3,9.7c0.1,0.5,0.3,1.4,0.9,1.6c0.9,0.4,1.6,0.1,4.3-1c0.5-0.2,6.1-2.5,7.3-0.9c0.4,0.6-0.1,1.6-0.7,2 c-0.5,0.3-2.3,1.3-4.1,2c-2.6,1.1-3.1,1.3-4.1,2c-1,0.8-0.8,0.4-1.9,1.7c-1.6,1.9-3.7,2.8-4.8,3.2c-1.9,0.7-4.5,0.6-5.8-0.5 c-1.2-1.1-0.5-2.4,0.4-5.6C111.2,99.3,113.1,99.3,114.5,93.9z"></path>
+                                    <path class="st2" d="M126.2,96.5c0.3,0,0.8-0.1,1.4,0c0.6,0.1,1,0.4,1.9,0.8c2.1,1.2,1.9,0.9,2.3,1.2c1,0.8,0.8,1.2,1.9,2.1 c0.5,0.4,1.9,1.1,3.3,0.2c0.5-0.3,0.2-1.1,0.2-1.2c-0.1-0.4-0.3-0.6-1.2-1.7c-0.7-0.8-0.9-1.1-0.8-1.2c0.1-0.1,1.2,0.2,1.2-0.8 c0-0.5-0.3-0.9-0.8-1.4c-1.7-1.9-1.9-2.5-3.1-3.3c-0.2-0.1-0.7-0.5-1.9-0.8c-3.1-0.8-4.8-2.1-6.2-1.7c-1.4,0.4-10.4,3.2-11,3.5 c-1.1,0.6-1.5,1.7-1.7,2.1c-1.4,3.5-2.6,4.4-5.8,11.6c-1.3,2.8-1.8,3.9-1.3,5c0.7,1.3,2.4,1.6,3.3,1.8c0.4,0.1,2.9,0.6,5-0.8 c1-0.7,1.5-1.6,2.5-3.3c1.7-3.1,1.7-4.7,3.1-5.4c0.1-0.1,1-0.5,2.3-0.8c0.4-0.1,0.7-0.2,0.8-0.2c1.7-0.2,4.1,0.5,4.4,0.6 c0.4,0.1,1.5,1.3,4.8,3.1c0.4,0.2,2.3,1.2,3.1,0.4c0.4-0.4,0.2-1,0.2-1c-0.2-0.7-1-1.1-1.7-1.4c-2-1.1-1.6-2-3.9-3.5 c-0.7-0.5-1.4-0.9-2.3-1.2c-3.1-1.2-5.2-0.2-5.4-1C120.6,97.4,122.9,97,126.2,96.5z"></path>
+                                  </g>
+                                </g>
+                                <g id="white-shirt">
+                                    <path id="shirt" class="st-shirt" d="M191,190.5c-5.2,1-11.1,1.8-17.6,2.2c-0.7-9.1-1.3-18.1-2-27.2v-18.8l1.1-19.1l-4-8 c-1.2,0.6-2.6,1.4-4.1,2.7c-0.7,0.6-1.3,1.2-1.8,1.8c-0.4,0.4-1,0.9-1.5,1.6c-0.8,1.1-1.3,2.2-1.5,3c-0.3-0.8-0.9-2-2-3.1 c-0.6-0.6-1.2-1.1-1.7-1.4c-1.5-1.8-2.9-3.5-4.4-5.3l-3.3,7.5l4.9,22.1l0.8,18.6c-1.3,8.4-2.5,16.8-3.8,25.2c0.1,0,0.2,0,0.2,0 l0,0c-7.2-0.7-13.8-1.9-19.6-3.2c-1.7,5.5-3.3,11-5,16.5c8.3,2.1,19.3,4.1,32.1,4.3c15.4,0.2,28.2-2.2,37.5-4.7 C193.8,200.3,192.4,195.4,191,190.5z"></path>
+                                    <path id="left_x5F_shadow" class="st-shirt-shadow" d="M135.7,107.1l4.3,6.8l3.7-0.4l-0.2-0.6c0,0,0.7-1.3,1.4-2.9c0.6-1.1,0.7-4.2,0.8-5.9 L135.7,107.1z"></path>
+                                    <path id="shadow_x5F_right" class="st-shirt-shadow" d="M179,104.9l-12.9-2.1c0,0,1.2,5.4,3.9,7.3c2,1.4,2.9,1.4,2.9,1.4L179,104.9z"></path>
+                                    <path id="right_x5F_collar" class="st-shirt" d="M184.8,109.7c-1.9-1.6-3.9-3.2-5.8-4.8c-4.4,4.8-8.8,9.5-13.1,14.2l-1.9,9.5l4.5-4.5 l4.2,7.9C176.7,124.6,180.8,117.1,184.8,109.7z"></path>
+                                    <path id="left_x5F_collar" class="st-shirt" d="M135.6,107l-6.1,4.2l17.8,20.8c1.2-3,2.5-6,3.8-8.9c2.2,2,4.5,3.9,6.7,5.9 c-2.1-3.4-4.2-6.8-6.3-10.1C146.2,114.9,140.9,111,135.6,107z"></path>
+                                    <path id="front_x5F_left_x5F_collar" class="st-shirt-shadow" d="M147.4,132c1.4-4.4,2.8-8.8,4.1-13.1c2,2.2,4.1,4.5,6.1,6.7 c-1.6-0.8-3.2-1.6-4.8-2.4c-0.6,0.8-1.2,1.7-1.9,2.6C149.5,128,148.3,130.1,147.4,132z"></path>
+                                    <path id="front_x5F_right_x5F_collar" class="st-shirt-shadow" d="M172.7,132c-2.3-4.3-4.6-8.5-6.9-12.8c-1.6,2.1-3.1,4.3-4.7,6.4 c1.5-0.6,2.9-1.3,4.4-2c1,0.7,2.1,1.6,3.1,2.8C170.5,128.5,171.8,130.4,172.7,132z"></path>
+                                </g>
+                            </svg>
+                        </div>
                     </div>
                 </div>
+
+                <p class="hero-description">
+                    Soy desarrolladora Frontend. Me especializo en construir interfaces limpias, fluidas y responsivas. Escribo código estructurado pensando siempre en el usuario final, para crear productos que realmente dé gusto utilizar.
+                </p>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Ver mis proyectos</button>
+                    <button class="btn btn-secondary">Contactar</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN SERVICIOS (INTACTA CON SU CUADRÍCULA)
+         ========================================== -->
+    <section class="seccion-siguiente">
+        
+        <h1 class="seccion-titulo">Mis Servicios</h1>
+
+        <div class="servicios-wrapper">
+            
+            <svg class="svg-lines svg-mobile" viewBox="0 0 100 185" preserveAspectRatio="none">
+                <path 
+                    d="M 35,40 C 75,40 82,60 82,85 C 82,110 50,115 38,135" 
+                    stroke="#d0d0d0" 
+                    stroke-width="0.3" 
+                    stroke-dasharray="1.5, 1.5" 
+                    fill="none" 
+                    stroke-linecap="round"
+                />
+            </svg>
+
+            <svg class="svg-lines svg-desktop" viewBox="0 0 100 133" preserveAspectRatio="none">
+                <path 
+                    d="M 28,25 C 60,25 72,40 72,55 C 72,70 50,70 34,88" 
+                    stroke="#d0d0d0" 
+                    stroke-width="0.3" 
+                    stroke-dasharray="1.5, 1.5" 
+                    fill="none" 
+                    stroke-linecap="round"
+                />
+            </svg>
+
+            <div class="card card-1">
+                <div class="cinta"></div>
+                <div class="card-inner">
+                    <h3 class="titulo">🚀 Landing pages</h3>
+                    <ul class="lista-servicios">
+                        <li><strong>Informativas:</strong> para presentar una marca, producto o servicio.</li>
+                        <li><strong>De lanzamiento:</strong> para presentar un nuevo producto, app o servicio.</li>
+                        <li><strong>Promocionales:</strong> para promocionar eventos, cursos, talleres o experiencias.</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- Interactive Action -->
-            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                <button onclick="refreshPage()" id="refreshBtn" class="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white font-medium shadow-md shadow-pink-300/50 hover:shadow-lg hover:shadow-pink-300/70 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 group">
-                    <svg id="refreshIcon" class="w-4 h-4 transition-transform group-hover:rotate-180 duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                    </svg>
-                    Probar de nuevo
-                </button>
+            <div class="card card-2">
+                <div class="cinta"></div>
+                <div class="card-inner">
+                    <h3 class="titulo">Páginas web</h3>
+                    <ul class="lista-servicios">
+                        <li>Corporativas</li>
+                        <li>Tiendas online</li>
+                        <li>Blogs</li>
+                        <li>Directorios</li>
+                        <li>Webs de reservas</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- Notification Toast (Hidden by default) -->
-            <div id="toast" class="hidden mt-4 p-3 bg-rose-50 border border-pink-300 text-pink-800 text-xs sm:text-sm rounded-xl transition-all duration-300 transform scale-95 opacity-0">
-                ¡Seguimos retocando detalles! Vuelve en un ratito ✨
+            <div class="card card-3">
+                <div class="cinta"></div>
+                <div class="card-inner">
+                    <h3 class="titulo">💻 Aplicaciones web</h3>
+                    <ul class="lista-servicios">
+                        <li><strong>Dashboards:</strong> para visualizar y gestionar datos, estadísticas y métricas.</li>
+                        <li><strong>Sistemas de gestión:</strong> para administrar productos, clientes, turnos, etc.</li>
+                        <li><strong>Sistemas de reservas:</strong> para gestionar citas y disponibilidad.</li>
+                    </ul>
+                </div>
             </div>
 
         </div>
 
-        <!-- Footer Note -->
-        <footer class="mt-6 text-xs text-rose-800/60 font-medium">
-            ¡Nos vemos muy pronto! ✨
-        </footer>
-    </main>
+    </section>
 
+    <!-- ==========================================
+         SECCIÓN PROYECTOS (SUBIENDO POR ENCIMA DE LA CUADRÍCULA)
+         ========================================== -->
+    <section id="projects-section" class="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        
+        <div class="text-center mb-24 z-40 shrink-0">
+            <h1 class="text-5xl sm:text-6xl text-gray-800 mb-2 niconne-regular">Proyectos</h1>
+            <p class="text-gray-500 text-sm sm:text-base">Desliza o toca para explorar la carpeta</p>
+        </div>
+
+        <div 
+            id="folder-container"
+            class="relative w-full max-w-[320px] sm:max-w-[400px] h-[280px] sm:h-[320px] mt-20 sm:mt-16 shrink-0 cursor-grab active:cursor-grabbing"
+            style="-webkit-tap-highlight-color: transparent;"
+        >
+            
+            <div class="absolute inset-0 z-0 flex flex-col justify-end">
+                <div class="w-[40%] h-[15%] bg-[#FF91B4] brightness-90 rounded-t-xl ml-2"></div>
+                <div class="w-full h-[85%] bg-[#FF91B4] brightness-95 rounded-xl rounded-tl-none shadow-inner"></div>
+            </div>
+
+            <div id="cards-container" class="absolute inset-0 z-10"></div>
+
+            <div class="absolute bottom-0 left-0 right-0 h-[65%] z-20 pointer-events-none">
+                <div class="w-full h-full bg-[#FF91B4] rounded-xl shadow-[0_-4px_10px_rgba(0,0,0,0.05)] border-t border-white/50">
+                    <div class="absolute top-2 left-2 right-2 bottom-2 border border-black/20 rounded-lg opacity-30"></div>
+                    <div class="absolute bottom-3 left-5 text-4xl niconne-regular" style="color: #FADDE1;">Soff</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="dots-container" class="flex items-center justify-center gap-3 mt-12 sm:mt-16 lg:-translate-y-8 z-30 shrink-0 min-h-[48px]">
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SCRIPTS COMBINADOS
+         ========================================== -->
     <script>
-        function refreshPage() {
-            const btn = document.getElementById('refreshBtn');
-            const icon = document.getElementById('refreshIcon');
-            const toast = document.getElementById('toast');
+      // ------------------------------------
+      // Lógica del Menú Hamburguesa
+      // ------------------------------------
+      const menuToggle = document.getElementById('menu-toggle');
+      const dropdownMenu = document.getElementById('dropdown-menu');
 
-            // Spin animation
-            icon.classList.add('animate-spin');
-            btn.disabled = true;
-            btn.classList.add('opacity-80');
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); 
+        dropdownMenu.classList.toggle('active');
+        menuToggle.classList.toggle('active'); 
+      });
 
-            // Show cute toast message after standard brief timeout
-            setTimeout(() => {
-                icon.classList.remove('animate-spin');
-                btn.disabled = false;
-                btn.classList.remove('opacity-80');
-
-                // Show toast animation
-                toast.classList.remove('hidden');
-                setTimeout(() => {
-                    toast.classList.remove('scale-95', 'opacity-0');
-                    toast.classList.add('scale-100', 'opacity-100');
-                }, 10);
-
-                // Hide toast after 3.5 seconds
-                setTimeout(() => {
-                    toast.classList.remove('scale-100', 'opacity-100');
-                    toast.classList.add('scale-95', 'opacity-0');
-                    setTimeout(() => {
-                        toast.classList.add('hidden');
-                    }, 300);
-                }, 3500);
-            }, 800);
+      document.addEventListener('click', (e) => {
+        if (!dropdownMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+          dropdownMenu.classList.remove('active');
+          menuToggle.classList.remove('active');
         }
+      });
+
+      window.addEventListener('scroll', () => {
+        if (dropdownMenu.classList.contains('active')) {
+          dropdownMenu.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      }, { passive: true });
+
+      document.querySelector('.hero-section').addEventListener('scroll', () => {
+        if (dropdownMenu.classList.contains('active')) {
+          dropdownMenu.classList.remove('active');
+          menuToggle.classList.remove('active');
+        }
+      }, { passive: true });
+
+
+      // ------------------------------------
+      // Animación de la chica (Click manual)
+      // ------------------------------------
+      const container = document.getElementById('sofia-container');
+      const arm = document.getElementById('left_x5F_arm_2_');
+      
+      container.style.cursor = 'pointer';
+
+      container.addEventListener('click', () => {
+        arm.style.animation = 'none';
+        
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            arm.style.animation = 'waveAnimation 0.7s ease-in-out 0s 4 forwards';
+          });
+        });
+      });
+
+
+      // ------------------------------------
+      // Loader y Vuelo del Corazón
+      // ------------------------------------
+      window.addEventListener('load', () => {
+          document.body.style.overflow = 'hidden';
+
+          setTimeout(() => {
+              const loaderWrapper = document.getElementById('loader-wrapper');
+              const moverDiv = document.getElementById('loader-heart-mover');
+              const targetHeart = document.querySelector('.title-heart');
+
+              requestAnimationFrame(() => {
+                  const targetRect = targetHeart.getBoundingClientRect();
+                  const moverRect = moverDiv.getBoundingClientRect();
+
+                  const scale = targetRect.width / moverRect.width;
+
+                  const targetCenterX = targetRect.left + (targetRect.width / 2);
+                  const targetCenterY = targetRect.top + (targetRect.height / 2);
+                  const moverCenterX = moverRect.left + (moverRect.width / 2);
+                  const moverCenterY = moverRect.top + (moverRect.height / 2);
+
+                  const deltaX = targetCenterX - moverCenterX;
+                  const deltaY = targetCenterY - moverCenterY;
+
+                  moverDiv.style.transition = 'transform 1.2s cubic-bezier(0.76, 0, 0.24, 1)';
+                  moverDiv.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
+
+                  loaderWrapper.style.transition = 'background-color 1s ease';
+                  loaderWrapper.style.backgroundColor = 'transparent';
+
+                  setTimeout(() => {
+                      targetHeart.style.opacity = '1'; 
+                      loaderWrapper.remove(); 
+                      document.body.style.overflow = ''; 
+                      
+                      arm.style.animation = 'waveAnimation 0.7s ease-in-out 0s 4 forwards';
+
+                  }, 1200); 
+              });
+          }, 4300); 
+      });
+
+
+      // ------------------------------------
+      // Lógica de Proyectos (Carpeta)
+      // ------------------------------------
+      const projects = [
+          {
+            id: 1,
+            title: "E-Commerce App",
+            category: "Desarrollo Web",
+            image: "https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?auto=format&fit=crop&q=80&w=600&h=400",
+            description: "Plataforma completa de ventas con carrito, pasarela de pago y panel de administrador. Optimizada para conversión. Esta aplicación cuenta con un sistema robusto de gestión de inventario en tiempo real, múltiples métodos de pago integrados de forma segura, y un panel de control intuitivo para revisar estadísticas de ventas diarias, semanales y mensuales. Todo construido con las mejores prácticas de rendimiento para una experiencia ultra rápida."
+          },
+          {
+            id: 2,
+            title: "Dashboard Analítico",
+            category: "UX/UI Design",
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600&h=400",
+            description: "Interfaz de usuario para análisis de datos en tiempo real. Diseño limpio, modo oscuro y gráficos interactivos. Incluye exportación de reportes en PDF y Excel, integración con múltiples APIs de terceros para centralizar la información empresarial, y un sistema de alertas personalizadas para notificar a los usuarios sobre métricas críticas y variaciones inesperadas en sus KPIs clave a lo largo del día."
+          },
+          {
+            id: 3,
+            title: "App de Delivery",
+            category: "Mobile App",
+            image: "https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&q=80&w=600&h=400",
+            description: "Aplicación móvil para pedir comida con seguimiento GPS en tiempo real y sistema de fidelización de clientes. Permite a los restaurantes gestionar sus pedidos de manera eficiente, ofrece a los repartidores una ruta optimizada para las entregas, e incluye un chat integrado para comunicación directa entre el cliente y el conductor durante todo el trayecto hasta la puerta de tu casa. Una solución verdaderamente integral."
+          }
+        ];
+
+        let activeIndex = 0;
+        let touchStart = null;
+        let touchEnd = null;
+        let isTrackpadScrolling = false;
+        let isEntering = false; 
+        let hasStartedEntry = false; 
+
+        const cardsContainer = document.getElementById('cards-container');
+        const dotsContainer = document.getElementById('dots-container');
+        const folderContainer = document.getElementById('folder-container');
+
+        projects.forEach((project, index) => {
+          const card = document.createElement('div');
+          
+          card.className = "card-item absolute top-[10%] left-0 right-0 mx-auto w-[90%] h-[95%] bg-white rounded-xl shadow-lg flex flex-col overflow-hidden border border-gray-100 will-change-transform";
+          const randomRot = Math.random() * 30 - 15; 
+          card.style.cssText = `transform: translateY(-800px) rotate(${randomRot}deg) scale(0.5); opacity: 0; transition: none; will-change: transform, opacity;`;
+
+          card.innerHTML = `
+            <div class="h-[45%] shrink-0 w-full bg-gray-200 relative overflow-hidden">
+              <img 
+                src="${project.image}" 
+                alt="${project.title}" 
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+              />
+              <div class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-[10px] font-bold text-gray-700 tracking-wider uppercase">
+                ${project.category}
+              </div>
+            </div>
+
+            <div class="card-content p-4 flex flex-col flex-grow transition-opacity duration-300 delay-100 opacity-0 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div class="flex items-center justify-between gap-2 mb-2 shrink-0">
+                <h3 class="text-xl font-bold text-gray-800 leading-tight">${project.title}</h3>
+                <a href="https://www.google.com" class="flex items-center gap-1 text-sm font-bold text-black hover:opacity-70 transition-opacity shrink-0 cursor-pointer">
+                  Ver <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+              </div>
+
+              <p class="text-gray-500 text-sm flex-grow mb-3">
+                ${project.description}
+              </p>
+              <button class="mt-auto shrink-0 w-full opacity-0 py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 pointer-events-none">
+                Ver Proyecto <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          `;
+          cardsContainer.appendChild(card);
+
+          const dot = document.createElement('div');
+          dot.className = "dot-item rounded-full transition-all duration-300 cursor-pointer bg-gray-300 w-6 h-2";
+          dot.onclick = () => { if(hasStartedEntry) setActiveIndex(index); };
+          dotsContainer.appendChild(dot);
+        });
+
+        const cardElements = cardsContainer.querySelectorAll('.card-item');
+        const dotElements = dotsContainer.querySelectorAll('.dot-item');
+
+        function render() {
+          if (!hasStartedEntry) return;
+
+          requestAnimationFrame(() => {
+            projects.forEach((_, index) => {
+              const isActive = index === activeIndex;
+              let offset = index - activeIndex;
+              
+              if (offset === projects.length - 1) offset = -1;
+              if (offset === -(projects.length - 1)) offset = 1;
+
+              let transformStyle = '';
+              if (isActive) {
+                transformStyle = 'transform: translateY(-55%) scale(1); z-index: 25; opacity: 1;';
+              } else if (offset === 1) {
+                transformStyle = 'transform: translateX(12%) translateY(-15%) scale(0.9) rotate(2deg); z-index: 15; opacity: 0.9;';
+              } else if (offset === -1) {
+                transformStyle = 'transform: translateX(-12%) translateY(-15%) scale(0.9) rotate(-2deg); z-index: 15; opacity: 0.9;';
+              } else {
+                transformStyle = 'transform: translateY(0%) scale(0.8); z-index: 5; opacity: 0;';
+              }
+
+              let transitionStyle = '';
+              if (isEntering) {
+                transitionStyle = `transition: transform 1.5s cubic-bezier(0.34, 1.1, 0.64, 1) ${index * 0.3}s, opacity 1.5s cubic-bezier(0.34, 1.1, 0.64, 1) ${index * 0.3}s;`;
+              } else {
+                transitionStyle = `transition: transform 0.5s ease-out, opacity 0.5s ease-out;`;
+              }
+
+              cardElements[index].style.cssText = transformStyle + transitionStyle + ' will-change: transform, opacity;';
+
+              const contentDiv = cardElements[index].querySelector('.card-content');
+              if (isActive) {
+                contentDiv.classList.remove('opacity-0');
+                contentDiv.classList.add('opacity-100');
+              } else {
+                contentDiv.classList.remove('opacity-100');
+                contentDiv.classList.add('opacity-0');
+              }
+
+              dotElements[index].className = `dot-item rounded-full transition-all duration-300 cursor-pointer ${
+                isActive ? 'bg-[#FF91B4] w-12 h-2' : 'bg-gray-300 w-6 h-2'
+              }`;
+            });
+          });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !hasStartedEntry) {
+              hasStartedEntry = true;
+              isEntering = true;
+              
+              setTimeout(() => {
+                render();
+                setTimeout(() => {
+                  isEntering = false;
+                }, 2500);
+              }, 200);
+            }
+          });
+        }, { threshold: 0.5 }); 
+
+        observer.observe(document.getElementById('folder-container'));
+
+        window.setActiveIndex = function(index) {
+          if(!hasStartedEntry) return;
+          activeIndex = index;
+          render();
+        };
+
+        function nextProject() {
+          if(!hasStartedEntry || isEntering) return;
+          activeIndex = activeIndex === projects.length - 1 ? 0 : activeIndex + 1;
+          render();
+        }
+
+        function prevProject() {
+          if(!hasStartedEntry || isEntering) return;
+          activeIndex = activeIndex === 0 ? projects.length - 1 : activeIndex - 1;
+          render();
+        }
+
+        folderContainer.addEventListener('click', (e) => {
+          if (!hasStartedEntry || isEntering || e.target.closest('button') || e.target.closest('a')) return;
+          const rect = folderContainer.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const width = rect.width;
+          if (clickX < width * 0.30) {
+            prevProject();
+          } else if (clickX > width * 0.70) {
+            nextProject();
+          }
+        });
+
+        folderContainer.addEventListener('touchstart', (e) => {
+          if(!hasStartedEntry) return;
+          touchStart = e.targetTouches[0].clientX;
+          touchEnd = null;
+        }, { passive: true });
+
+        folderContainer.addEventListener('touchmove', (e) => {
+          if(!hasStartedEntry) return;
+          touchEnd = e.targetTouches[0].clientX;
+        }, { passive: true });
+
+        folderContainer.addEventListener('touchend', () => {
+          if (!touchStart || !touchEnd || !hasStartedEntry || isEntering) return;
+          const distance = touchStart - touchEnd;
+          const threshold = 35; 
+          
+          if (distance > threshold) {
+            nextProject(); 
+          } else if (distance < -threshold) {
+            prevProject(); 
+          }
+        });
+
+        folderContainer.addEventListener('wheel', (e) => {
+          if (isTrackpadScrolling || !hasStartedEntry || isEntering) return;
+
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 15) {
+            isTrackpadScrolling = true;
+            if (e.deltaX > 0) {
+              nextProject();
+            } else {
+              prevProject();
+            }
+            setTimeout(() => { isTrackpadScrolling = false; }, 500); 
+          }
+        }, { passive: true });
+
+        lucide.createIcons();
     </script>
 </body>
 </html>

@@ -743,6 +743,9 @@
         /* ========================================================
            SECCIÓN DE EDUCACIÓN Y CERTIFICADOS
            ======================================================== */
+      /* ========================================================
+           SECCIÓN DE EDUCACIÓN Y CERTIFICADOS
+           ======================================================== */
         #educacion-section {
             --unit: calc(100vw / 270);
             font-family: 'Inter', sans-serif;
@@ -762,12 +765,20 @@
         .edu-wrapper {
             display: flex;
             align-items: flex-start;
-            /* El 15vh aquí genera el espaciado perfecto respecto a Proyectos sin tocar esa sección */
+            /* Este 15vh queda de forma predeterminada (aplica a celus MUY chiquitos y tablets) */
             padding: 15vh calc(10 * var(--unit)) 40px;
             gap: calc(12 * var(--unit));
             min-height: 100vh;
             max-width: 100vw;
             box-sizing: border-box;
+        }
+
+        /* --- REGLA EXCLUSIVA PARA CELULARES MEDIANOS Y GRANDES (Desde 380px hasta 767px) --- */
+        @media (min-width: 380px) and (max-width: 767px) {
+            .edu-wrapper {
+                /* //SOFFF aqui es donde se sube en celus. */
+                padding-top: 6vh; 
+            }
         }
 
         .edu-sidebar {
@@ -957,6 +968,7 @@
                 min-height: auto;
                 height: auto;
                 justify-content: center;
+                /* En compu se mantiene tu padding fijo, no se rompe nada */
                 padding: 40px 10px; 
             }
         }

@@ -768,7 +768,8 @@
             /* Este 15vh queda de forma predeterminada (aplica a celus MUY chiquitos y tablets) */
             padding: 15vh calc(10 * var(--unit)) 40px;
             gap: calc(12 * var(--unit));
-            min-height: 100vh;
+            /* min-height: 100vh; */
+             min-height: 100vh;
             max-width: 100vw;
             box-sizing: border-box;
         }
@@ -972,6 +973,69 @@
                 padding: 40px 10px; 
             }
         }
+
+
+        /* 2 */
+        /* ========================================================
+           TU SEPARADOR
+           ======================================================== */
+        .stripe-divider {
+            width: 100%;
+            height: 36px;
+            background-color: #FAF0F4;
+            background-image: repeating-linear-gradient(
+                90deg,
+                #FDD2E4,
+                #FDD2E4 16px,
+                #FAF0F4 16px,
+                #FAF0F4 32px
+            );
+        }
+
+        /* ========================================================
+           SECCIÓN TECNOLOGÍAS
+           ======================================================== */
+        #tecnologias {
+            /* //SOFF espaciado entre separador y tecnoogias porfisss (en PC y Tablets) */
+            /* La magia: usamos padding en vez de margin para matar el agujero blanco */
+            padding-top: 40px !important; 
+            margin-top: 0 !important; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        @media (min-width: 380px) and (max-width: 767px) {
+            #tecnologias {
+                /* //SOFF espaciado entre separador y tecnoogias porfisss (en Celulares) */
+                padding-top: 25px !important; 
+                margin-top: 0 !important;
+            }
+        }
+
+        /* Efectos de Cristal (Glassmorphism) encapsulados */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+        
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Animación Hover de las pastillas */
+        .tech-pill {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .tech-pill:hover {
+            transform: translateY(-4px);
+        }
+
+          
+       
+     
     </style>
 </head>
 
@@ -1327,7 +1391,200 @@
             <img class="edu-modal-img" id="expandedImg" src="" alt="Certificado Ampliado">
         </div>
     </section>
+    
+    <!-- ==========================================
+         AQUÍ TERMINA EDUCACIÓN
+         ========================================== -->
+
+    <!-- abajo va separador y tecnologias -->
+  
+    <!-- ==========================================
+         EL SEPARADOR DE SOFF
+         ========================================== -->
+    <div class="stripe-divider"></div>
+
              
+    <!-- 2 -->
+     <!-- ==========================================
+         SECCIÓN TECNOLOGÍAS (CON SUS PROPIAS LIBRERÍAS)
+         ========================================== -->
+    <!-- Librerías cargadas solo para esta sección -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <section id="tecnologias" class="relative pt-6 pb-12 sm:pt-10 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors duration-300">
+        
+        <!-- Subtle Ambient Background Glows -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-slate-300/20 dark:bg-slate-700/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-slate-300/20 dark:bg-slate-700/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10">
+            
+            <!-- SECTION HEADER -->
+            <div class="text-center mb-6 sm:mb-8">
+                <!-- Título igualado en tamaño al de Proyectos -->
+                <h2 class="text-5xl sm:text-6xl text-gray-800 mb-2 niconne-regular select-none">
+                    Tecnologías
+                </h2>
+                
+                <p class="mt-1 sm:mt-2 max-w-xl mx-auto text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 font-normal">
+                    Herramientas, lenguajes y frameworks con los que construyo soluciones digitales fluidas y escalables.
+                </p>
+            </div>
+
+            <!-- CATEGORY FILTER TABS -->
+            <div class="flex justify-center mb-6 sm:mb-8">
+                <div class="flex flex-wrap justify-center gap-1.5 p-1.5 bg-slate-200/60 dark:bg-slate-900/80 rounded-2xl border border-slate-300/40 dark:border-slate-800">
+                    <button class="filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm" data-category="all">
+                        Todas
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="frontend">
+                        Frontend
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="backend">
+                        Backend
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="database">
+                        Bases de Datos
+                    </button>
+                    <button class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all" data-category="tools">
+                        Herramientas
+                    </button>
+                </div>
+            </div>
+
+            <!-- PILLS CONTAINER -->
+            <div id="pillsContainer" class="flex flex-wrap justify-center gap-3 sm:gap-3.5 max-w-4xl mx-auto">
+                
+                <!-- Frontend Pills -->
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-html5-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>HTML5</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-css3-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>CSS3</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-javascript-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>JavaScript</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-typescript-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>TypeScript</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-react-original text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>React</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-astro-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Astro</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-tailwindcss-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Tailwind CSS</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="frontend">
+                    <i class="devicon-sass-original text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Sass / SCSS</span>
+                </div>
+
+                <!-- Backend Pills -->
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="backend">
+                    <i class="devicon-nodejs-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Node.js</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="backend">
+                    <i class="devicon-express-original text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Express.js</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="backend">
+                    <i class="devicon-python-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Python</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="backend">
+                    <i class="devicon-csharp-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>C#</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="backend">
+                    <i class="devicon-go-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Go</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="backend">
+                    <i class="fa-brands fa-windows text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>C# Windows Forms</span>
+                </div>
+
+                <!-- Database Pills -->
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="database">
+                    <i class="devicon-postgresql-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>PostgreSQL</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="database">
+                    <i class="devicon-mongodb-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>MongoDB</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="database">
+                    <i class="devicon-mysql-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>MySQL</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="database">
+                    <i class="devicon-microsoftsqlserver-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>SQL Server</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="database">
+                    <i class="devicon-mariadb-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>MariaDB</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="database">
+                    <i class="fa-solid fa-database text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>HeidiSQL</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="database">
+                    <i class="devicon-sqlite-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>SQLite</span>
+                </div>
+
+                <!-- Tools Pills -->
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="tools">
+                    <i class="devicon-git-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Git / GitHub</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="tools">
+                    <i class="devicon-postman-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Postman</span>
+                </div>
+
+                <div class="tech-pill glass-card px-4 py-2.5 rounded-full flex items-center gap-2.5 text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md transition-all cursor-default select-none group" data-category="tools">
+                    <i class="devicon-trello-plain text-lg text-slate-900 dark:text-white group-hover:scale-110 transition-transform"></i>
+                    <span>Trello</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
 
 
     <!-- ==========================================
@@ -1338,5 +1595,6 @@
 <script src="hero.js" defer></script>
 <script src="proyectos.js" defer></script>
 <script src="educacion.js" defer></script>
+<script src="tecnologias.js" defer></script>
 </body>
 </html>

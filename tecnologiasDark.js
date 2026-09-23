@@ -1,16 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Dynamic Category Filter for Pills
     const filterBtns = document.querySelectorAll('.filter-btn');
     const techPills = document.querySelectorAll('.tech-pill');
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            // Update active state on filter buttons
             filterBtns.forEach(b => {
-                b.classList.remove('active', 'bg-white', 'text-slate-900', 'shadow-sm');
-                b.classList.add('text-slate-600');
+                b.classList.remove('active', 'bg-white', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+                b.classList.add('text-slate-600', 'dark:text-slate-400');
             });
 
-            btn.classList.add('active', 'bg-white', 'text-slate-900', 'shadow-sm');
-            btn.classList.remove('text-slate-600');
+            btn.classList.add('active', 'bg-white', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white', 'shadow-sm');
+            btn.classList.remove('text-slate-600', 'dark:text-slate-400');
 
             const selectedCategory = btn.getAttribute('data-category');
 

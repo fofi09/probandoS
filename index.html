@@ -745,7 +745,8 @@
             );
          */
          /* background-color: #FFF5F5; */
-        background-color: #fcebf0;  
+        /* background-color: #fcebf0;   */
+         background-color: #ffe9ef;
         }
         
         @media (max-width: 850px) {
@@ -765,7 +766,9 @@
         #educacion-section {
             --unit: calc(100vw / 270);
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
+            /* background-color: #f8fafc; */
+            background-color: #fcebf0;
+            /* background-color: #ffe9ef; */
             overflow-x: hidden;
             width: 100%;
             position: relative;
@@ -989,7 +992,15 @@
                 padding: 40px 10px; 
             }
         }
-
+        /* ========================================================
+           AJUSTE DE ESPACIADO SOLO PARA PC GRANDE Y TELEVISORES
+           ======================================================== */
+        @media (min-width: 1600px) {
+            #educacion-section {
+                /* //SOFF aqui ajustas cuánto sube Educación solo en PC grandes y teles */
+                margin-top: -15vh !important; 
+            }
+        }
 
         /* 2 */
         /* ========================================================
@@ -1421,6 +1432,8 @@
             <span class="edu-modal-close" id="closeModalBtn">&times;</span>
             <img class="edu-modal-img" id="expandedImg" src="" alt="Certificado Ampliado">
         </div>
+
+        
     </section>
     
     <!-- ==========================================

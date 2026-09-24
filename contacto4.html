@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Consulta - Fondo Stripe</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter & Nicone -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Niconne&display=swap" rel="stylesheet">
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              nicone: ['Niconne', 'cursive'],
+            },
+            colors: {
+              stripePink: '#FDD2E4',
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      /* Carga forzada de fuente Nicone para asegurar visualización */
+      .font-nicone {
+        font-family: 'Niconne', cursive !important;
+      }
+
+      /* Full viewport striped background with user's preferred wider lines (20px) */
+      .bg-vertical-stripes {
+        background-color: #FFFFFF;
+        background-image: repeating-linear-gradient(
+          90deg,
+          #FDD2E4,
+          #FDD2E4 20px,
+          #FFFFFF 20px,
+          #FFFFFF 40px
+        );
+        background-size: cover;
+        background-attachment: fixed;
+      }
+
+      /* Clean frosted glass card for smooth legibility over stripes */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+      }
+
+      /* Input focus styling */
+      .glass-input {
+        background-color: rgba(255, 255, 255, 0.95);
+        transition: all 0.2s ease-in-out;
+      }
+      .glass-input:focus {
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.25);
+      }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-800 bg-vertical-stripes min-h-screen flex flex-col items-center justify-start pt-2 sm:pt-4 md:pt-6 pb-8 px-4 selection:bg-pink-300 selection:text-pink-900">
+
+    <!-- Centered Container -->
+    <main class="w-full max-w-md sm:max-w-lg md:max-w-xl flex flex-col items-center">
+        
+        <!-- Título 'contactos' en Nicone desde la parte superior -->
+        <h1 class="font-nicone text-5xl sm:text-6xl md:text-7xl text-slate-800 text-center leading-tight tracking-wide drop-shadow-sm mb-3 sm:mb-4 md:mb-5 selection:bg-pink-200">
+            contactos
+        </h1>
+
+        <div class="glass-card rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden border border-white/80 w-full">
+            
+            <!-- Frase motivadora y empática de bienvenida -->
+            <p class="text-xs sm:text-sm text-slate-700 text-center font-medium leading-relaxed mb-6 bg-pink-50/70 p-3.5 sm:p-4 rounded-2xl border border-pink-200/80 shadow-sm">
+                ✨ ¿Tienes una idea, proyecto o emprendimiento en mente? Escríbeme con total confianza y contame lo que necesites, ¡estoy para ayudarte!
+            </p>
+
+            <form id="contactForm" onsubmit="handleSend(event)" class="space-y-5 sm:space-y-6">
+                
+                <!-- Input 1: Nombre -->
+                <div>
+                    <label for="userName" class="block text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i data-lucide="user" class="w-4 h-4 text-pink-600"></i> Nombre
+                    </label>
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="userName" 
+                            name="userName" 
+                            required
+                            placeholder="Ingresa tu nombre" 
+                            class="w-full px-4 py-3.5 pl-11 rounded-2xl border border-slate-200 text-slate-900 placeholder:text-slate-400 font-medium text-sm sm:text-base glass-input focus:outline-none focus:border-pink-500 shadow-sm"
+                        />
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <i data-lucide="user-check" class="w-5 h-5 text-pink-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input 2: Consulta (OPCIONAL) -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <label for="userQuery" class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="help-circle" class="w-4 h-4 text-pink-600"></i> Consulta
+                        </label>
+                        <span class="text-xs font-semibold text-slate-400 italic">(Opcional)</span>
+                    </div>
+                    <div class="relative">
+                        <textarea 
+                            id="userQuery" 
+                            name="userQuery" 
+                            rows="4" 
+                            placeholder="Escribe aquí tu consulta si deseas (opcional)..." 
+                            class="w-full px-4 py-3.5 pl-11 rounded-2xl border border-slate-200 text-slate-900 placeholder:text-slate-400 font-medium text-sm sm:text-base glass-input focus:outline-none focus:border-pink-500 shadow-sm resize-none"
+                        ></textarea>
+                        <div class="absolute top-3.5 left-0 pl-3.5 pointer-events-none text-slate-400">
+                            <i data-lucide="message-square-text" class="w-5 h-5 text-pink-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje de éxito oculto por defecto, aparece arriba del botón -->
+                <div id="successMsg" class="hidden text-emerald-600 text-sm font-bold flex items-center justify-center gap-2 pt-2">
+                    <i data-lucide="check-circle-2" class="w-5 h-5"></i> Mensaje enviado
+                </div>
+
+                <!-- Botón Enviar -->
+                <div class="pt-1">
+                    <button 
+                        type="submit" 
+                        id="submitBtn"
+                        class="w-full py-3.5 sm:py-4 px-6 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:via-rose-600 hover:to-pink-700 text-white font-bold text-base sm:text-lg rounded-2xl shadow-lg hover:shadow-pink-500/30 transform active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2 group cursor-pointer"
+                    >
+                        <i data-lucide="send" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        <span>Enviar</span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+
+        // Lógica de envío a WhatsApp
+        function handleSend(event) {
+            event.preventDefault();
+            
+            const nameInput = document.getElementById('userName').value.trim();
+            const queryInput = document.getElementById('userQuery').value.trim();
+            const submitBtn = document.getElementById('submitBtn');
+            const successMsg = document.getElementById('successMsg');
+
+            if (!nameInput) return;
+
+            // ===== AQUÍ PONES TU NÚMERO DE WHATSAPP =====
+            // Formato: Código de país (54) + 9 + código de área sin el 0 + número sin el 15.
+            const telefono = "5493815974846"; 
+            
+            // Lógica de construcción del mensaje
+            let finalMessage = "";
+            if (queryInput === "") {
+                finalMessage = `hola soy ${nameInput}, vi tu porftolio y quise contactarme con vos.`;
+            } else {
+                finalMessage = `mensaje de ${nameInput}: ${queryInput}`;
+            }
+
+            // Crear el enlace de WhatsApp
+            const url = `https://wa.me/${telefono}?text=${encodeURIComponent(finalMessage)}`;
+
+            // Guardar estado original del botón y mostrar pequeña animación
+            const originalContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Conectando...</span>
+            `;
+
+            // Darle un pequeño retraso visual para que se note la acción
+            setTimeout(() => {
+                // Abrir WhatsApp en una nueva pestaña
+                window.open(url, '_blank');
+                
+                // Restaurar el botón a la normalidad
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalContent;
+                if (window.lucide) lucide.createIcons();
+
+                // Mostrar el mensaje de "Mensaje enviado" arriba del botón
+                successMsg.classList.remove('hidden');
+                
+                // Limpiar el formulario
+                document.getElementById('contactForm').reset();
+
+                // Opcional: Ocultar el cartel de "Mensaje enviado" después de 5 segundos
+                setTimeout(() => {
+                    successMsg.classList.add('hidden');
+                }, 5000);
+
+            }, 600);
+        }
+    </script>
+</body>
+</html>

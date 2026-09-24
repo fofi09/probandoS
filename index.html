@@ -805,7 +805,7 @@
             writing-mode: vertical-lr;
             transform: rotate(180deg);
             white-space: nowrap;
-            color: #2563eb;
+            color: black;
             font-weight: 700;
             display: flex;
             flex-direction: column;
@@ -831,7 +831,7 @@
             }
             .edu-blue-line:active {
                 transform: scale(0.95);
-                background: #1d4ed8;
+                background: #63b4e2;
             }
         }
 
@@ -848,7 +848,8 @@
             font-size: calc(72 * var(--unit)); 
             font-weight: 500;
             line-height: 0.7; 
-            color: #1a1a2e;
+            /* color: #1a1a2e; */
+             color: #ff5d8f;
         }
 
         .edu-cert-text {
@@ -860,7 +861,7 @@
 
         .edu-blue-line {
             width: calc(6 * var(--unit));
-            background: #2563eb;
+            background: #ff87ab;
             border-radius: 99px;
             height: calc(250 * var(--unit));
             flex-shrink: 0; 
@@ -915,7 +916,7 @@
         .edu-card-title {
             font-size: calc(14 * var(--unit)); 
             font-weight: 700; 
-            color: #1e3a8a; 
+            color: #ff5d8f; 
             margin: 0;
         }
 
@@ -999,6 +1000,37 @@
             #educacion-section {
                 /* //SOFF aqui ajustas cuánto sube Educación solo en PC grandes y teles */
                 margin-top: -15vh !important; 
+            }
+        }
+        /* scroll en pc y teel si no te gsuta solo borras esto de abajp, no hay nada en index ni nada es solo aqui */
+        /* ========================================================
+           SCROLLBAR VISIBLE EN EDUCACIÓN SOLO PARA PC Y TELE
+           ======================================================== */
+        @media (min-width: 1441px) {
+            .edu-carousel {
+                /* Restauramos el scroll para Firefox */
+                scrollbar-width: thin; 
+                scrollbar-color: rgba(156, 163, 175, 0.5) rgba(0,0,0,0.05);
+                
+                /* //SOFF: le damos un pelín más de padding abajo para que la barra no pise tus tarjetas */
+                padding-bottom: 25px; 
+            }
+            
+            /* Restauramos el scroll para Chrome, Edge y Safari */
+            .edu-carousel::-webkit-scrollbar { 
+                display: block; 
+                height: 10px; /* Grosor de la barrita horizontal */
+            }
+            .edu-carousel::-webkit-scrollbar-track {
+                background: rgba(0,0,0,0.05);
+                border-radius: 9999px;
+            }
+            .edu-carousel::-webkit-scrollbar-thumb {
+                background: rgba(156, 163, 175, 0.5); /* El gris semi-transparente de tus otras barras */
+                border-radius: 9999px;
+            }
+            .edu-carousel::-webkit-scrollbar-thumb:hover {
+                background: rgba(156, 163, 175, 0.8);
             }
         }
 
